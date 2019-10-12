@@ -1,0 +1,19 @@
+
+server:
+  port: 8080
+spring:
+  application:
+    name: esagg
+  #datasource:
+  #  url: jdbc:mysql://localhost:3306/elasticsearch
+  #  username: root
+  #  password: 123456
+  #  driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: false
+  data:
+    elasticsearch:
+      cluster-name: es-application
+      cluster-nodes: 127.0.0.1:9300
+      repositories:
+        enabled: true
