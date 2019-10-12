@@ -13,6 +13,7 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.sum.InternalSum;
+import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumAggregationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -115,8 +116,12 @@ public class EsStockInfoServiceImpl implements EsStockInfoService{
                 // 得到所有子聚合
                 Map<String, Aggregation> subaggmap = bk.getAggregations().asMap();
                 log.info("subaggmap:{}" + subaggmap);
-                double value = ((InternalSum)subaggmap.get("sum_num")).getValue();
-                int num = Double.valueOf(value).intValue();
+
+//                double value = ((InternalSum)subaggmap.get("sum_num")).getValue();
+//                int num = Double.valueOf(value).intValue();
+
+                Sum sum = bk.getAggregations().get("sum_num");
+                int num = Double.valueOf(sum.getValue()).intValue();
                 log.info("num:{}" + num);
                 System.out.println("-----------------------------------");
                 // 获取结果后进行解析
@@ -125,9 +130,11 @@ public class EsStockInfoServiceImpl implements EsStockInfoService{
                     int houseId = bk2.getKeyAsNumber().intValue();
                     log.info("houseId:" + houseId);
                     //得到所有子聚合
-                    Map<String, Aggregation> subaggmap2 = bk2.getAggregations().asMap();
-                    double value2 = ((InternalSum)subaggmap2.get("sum_num")).getValue();
-                    int num2 = Double.valueOf(value2).intValue();
+//                    Map<String, Aggregation> subaggmap2 = bk2.getAggregations().asMap();
+//                    double value2 = ((InternalSum)subaggmap2.get("sum_num")).getValue();
+//                    int num2 = Double.valueOf(value2).intValue();
+                    Sum sum2 = bk2.getAggregations().get("sum_num");
+                    int num2 = Double.valueOf(sum2.getValue()).intValue();
                     log.info("num2:{}" + num2);
                 }
                 log.info("一次循环结束--------------------------");
@@ -184,8 +191,10 @@ public class EsStockInfoServiceImpl implements EsStockInfoService{
                 // 得到所有子聚合
                 Map<String, Aggregation> subaggmap = bk.getAggregations().asMap();
                 log.info("subaggmap:{}" + subaggmap);
-                double value = ((InternalSum)subaggmap.get("sum_num")).getValue();
-                int num = Double.valueOf(value).intValue();
+//                double value = ((InternalSum)subaggmap.get("sum_num")).getValue();
+//                int num = Double.valueOf(value).intValue();
+                Sum sum = bk.getAggregations().get("sum_num");
+                int num = Double.valueOf(sum.getValue()).intValue();
                 log.info("num:{}" + num);
                 log.info("一次循环结束--------------------------");
             }
